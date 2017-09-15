@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/playsound.css">
+    <title>PlaySound</title>
+  </head>
+  <body onload="getPlaylists('answers.txt', 'answersPL'); getPlaylists('long_breaks.txt', 'long_breaksPL'); getPlaylists('short_breaks.txt', 'short_breaksPL');" onkeydown="keyCode(event)">
+    <table class="table table-hover" style="width:460">
+      <tr>
+        <td>
+          <button onclick="PlaySound('volume1','myaudio1', 'long_breaksPL');" class="btn btn-primary btn-lg btn-block">1 - long breaks</button>
+        </td>
+        <td>
+          <input type="range" id="volume1" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume1','myaudio1')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlaySoundStart('volume2', 'myaudio2');" class="btn btn-primary btn-lg btn-block">2 - start</button>
+        </td>
+        <td>
+          <input type="range" id="volume2" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume2','myaudio2')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlaySound('volume3', 'myaudio3');" class="btn btn-primary btn-lg btn-block">3 - гонг</button>
+        </td>
+        <td>
+          <input type="range" id="volume3" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume3','myaudio3')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlayDuration('volume4', 'myaudio4', 60000);" class="btn btn-primary btn-lg">4 - мин</button>
+          <button onclick="PlayDuration('volume4', 'myaudio4', 30000);" class="btn btn-primary btn-lg">5 - 30 c  </button>
+          <button onclick="PlayDuration('volume4', 'myaudio4', 20000);" class="btn btn-primary btn-lg">6 - 20 c  </button>
+        </td>
+        <td>
+          <input type="range" id="volume4" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume4','myaudio4')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlaySound('volume5', 'myaudio5', 'short_breaksPL');" class="btn btn-primary btn-lg btn-block">7 - short breaks</button>
+        </td>
+        <td>
+          <input type="range" id="volume5" min="0" max="1" value="0.2" step="0.1" oninput="changeVol('volume5','myaudio5')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlaySound('volume6', 'myaudio6', 'answersPL');" class="btn btn-primary btn-lg btn-block">8 - answer</button>
+        </td>
+        <td>
+          <input type="range" id="volume6" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume6','myaudio6')">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button onclick="StopSound();" class="btn btn-danger btn-lg btn-block">9 - STOP ALL SOUNDS</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button onclick="fadesrc();" class="btn btn-warning btn-lg btn-block">space - Fade out</button>
+        </td>
+      </tr>
+    </table>
+    <div>
+      <audio id="myaudio1">
+        <source src="/sounds/long_breaks/18. Creep.mp3">
+      </audio>
+      <audio id="myaudio2">
+        <source src="/sounds/r u mine.mp3">
+      </audio>
+      <audio id="myaudio3">
+        <source src="/sounds/gong.mp3">
+      </audio>
+      <audio id="myaudio4">
+        <source src="./sounds/60 seconds.mp3">
+      </audio>
+      <audio id="myaudio5">
+        <source src="/sounds/short_breaks/James Brown — The Boss (OST Lock, Stock & Two Smoking Barrels).mp3">
+      </audio>
+      <audio id="myaudio6">
+        <source src="/sounds/answers/Gorillaz — Clint Eastwood.mp3">
+      </audio>
+    </div>
+    <div id="playlists" class="hidden">  </div>
+    
+    <script>
+      function keyCode(event){
+        var x = event.keyCode;
+        console.log(x);
+        if (x == "49"){
+          PlaySound('volume1','myaudio1', 'long_breaksPL');
+        } else if (x == "50"){
+          PlaySound('volume2', 'myaudio2');
+        } else if (x == "51"){
+          PlaySound('volume3', 'myaudio3');
+        }else if (x == "52"){
+          PlayDuration('volume4', 'myaudio4', 60000);
+        }else if (x == "53"){
+          PlayDuration('volume4', 'myaudio4', 30000);
+        }else if (x == "54"){
+          PlayDuration('volume4', 'myaudio4', 20000);
+        }else if (x == "55"){
+          PlaySound('volume5', 'myaudio5', 'short_breaksPL');
+        }else if (x == "56"){
+          PlaySound('volume6', 'myaudio6', 'answersPL');
+        }else if (x == "57"){
+          StopSound();
+        }else if (x == "32"){
+          fadesrc();
+        }
+      }
+    </script>
+    <script>
+      function getPlaylists(src, name){
+        var text = '';
+        var request = new XMLHttpRequest();
+        request.open('GET', src, true);
+        request.responseType = 'blob';
+        request.onload = function() {
+          var reader = new FileReader();
+          reader.readAsText(request.response);
+          reader.onload =  function(e){
+            text = reader.result;
+            text = text.substring(0, (text.length-2));
+            var para = document.createElement("p");
+            para.id = name;
+            para.innerHTML = text;
+            document.getElementById('playlists').appendChild(para);
+          };
+        };
+        request.send();
+      };
+    </script>
+    <script>
+      function PlayDuration(vol, srcid, dur){
+        PlaySound(vol, srcid);
+        setTimeout(StopSound,dur);
+      };
+    </script>
+    <script>
+      function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        while (0 !== currentIndex) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+        return array;
+      }
+    </script>
+    <script>
+      function randomInt(max) {
+        var rand = 0 - 0.5 + Math.random() * (max + 1)
+        rand = Math.round(rand);
+        return rand;
+      }
+    </script>
+    <script>
+      function PlaySound(vol, srcid, plname){
+        StopSound();
+        var audio = document.getElementById(srcid);
+        var volume_val = document.getElementById(vol).value;
+        
+        if (typeof plname != 'undefined'){
+          
+          var playlist = document.getElementById(plname).innerHTML;
+          playlist = playlist.split(";;");
+                    
+          var curSong = randomInt(playlist.length - 1);
+          var prevSong = curSong;
+          var nextSong = 0;
+          
+          audio.src = playlist[curSong];
+          audio.load();
+          audio.volume = volume_val;
+          audio.play();
+          console.log(audio.src);
+          audio.onended = function(){
+            nextSong = randomInt(playlist.length - 1);
+            while(nextSong == curSong || nextSong == prevSong){
+              nextSong = randomInt(playlist.length - 1);
+            };
+            audio.src = playlist[nextSong];
+            audio.play();
+            console.log(audio.src);
+            prevSong = curSong;
+            curSong = nextSong;
+          }
+        }else{
+          audio.load();
+          audio.volume = volume_val;
+          audio.play();
+          console.log(audio.src);
+        }
+      };
+    </script>
+    <script>
+      function PlaySoundStart(vol, srcid){
+        var allaudio = document.getElementsByTagName("audio");
+        var started = 0;
+        for (var i=0; i<allaudio.length; i++) {
+          if (!allaudio[i].paused){
+            started += 1;
+            allaudio[i].onended = function(){
+              console.log("play!");
+              PlaySound(vol, srcid);
+            }
+          };
+        };
+        if (started == 0){
+          PlaySound(vol, srcid);
+        }
+      }
+    </script>
+    <script>
+      function changeVol(vol, srcid){
+        var volume_val = document.getElementById(vol).value;
+        var audio = document.getElementById(srcid);
+        audio.volume = volume_val;
+      };
+    </script>
+    <script>
+      function StopSound(){
+        var allaudio = document.getElementsByTagName("audio");
+        for (var i=0; i < allaudio.length; i++) {
+          allaudio[i].pause();
+        };
+      };
+    </script>
+    <script>
+      function fadesrc(){
+        var allaudio = document.getElementsByTagName("audio");
+        for (var i=0; i<allaudio.length; i++) {
+          if (!allaudio[i].paused){
+            fade(allaudio[i]);
+          };
+        };
+        function fade(audio){
+          if(audio.volume > 0){
+            audio.volume -= 0.1;
+            setTimeout(fade, 200, audio);
+          }else{
+            audio.pause();
+          };
+        };
+      };
+    </script>
+  </body>
+</html>
