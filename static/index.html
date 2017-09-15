@@ -7,10 +7,11 @@
     <title>PlaySound</title>
   </head>
   <body onload="getPlaylists('answers.txt', 'answersPL'); getPlaylists('long_breaks.txt', 'long_breaksPL'); getPlaylists('short_breaks.txt', 'short_breaksPL');" onkeydown="keyCode(event)">
-    <table class="table table-hover" style="width:460">
+    <table class="table table-hover" style="width:470">
       <tr>
         <td>
-          <button onclick="PlaySound('volume1','myaudio1', 'long_breaksPL');" class="btn btn-primary btn-lg btn-block">1 - long breaks</button>
+          <button onclick="PlaySound('volume1','myaudio1', 'long_breaksPL');" class="btn btn-primary btn-lg btn-block">
+          <span class="badge">1</span>  long breaks</button>
         </td>
         <td>
           <input type="range" id="volume1" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume1','myaudio1')">
@@ -18,7 +19,8 @@
       </tr>
       <tr>
         <td>
-          <button onclick="PlaySoundStart('volume2', 'myaudio2');" class="btn btn-primary btn-lg btn-block">2 - start</button>
+          <button onclick="PlaySoundStart('volume2', 'myaudio2');" class="btn btn-primary btn-lg btn-block">
+          <span class="badge">2</span>  start</button>
         </td>
         <td>
           <input type="range" id="volume2" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume2','myaudio2')">
@@ -26,7 +28,8 @@
       </tr>
       <tr>
         <td>
-          <button onclick="PlaySound('volume3', 'myaudio3');" class="btn btn-primary btn-lg btn-block">3 - гонг</button>
+          <button onclick="PlaySound('volume3', 'myaudio3');" class="btn btn-primary btn-lg btn-block">
+          <span class="badge">3</span>  гонг</button>
         </td>
         <td>
           <input type="range" id="volume3" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume3','myaudio3')">
@@ -34,9 +37,14 @@
       </tr>
       <tr>
         <td>
-          <button onclick="PlayDuration('volume4', 'myaudio4', 60000);" class="btn btn-primary btn-lg">4 - мин</button>
-          <button onclick="PlayDuration('volume4', 'myaudio4', 30000);" class="btn btn-primary btn-lg">5 - 30 c  </button>
-          <button onclick="PlayDuration('volume4', 'myaudio4', 20000);" class="btn btn-primary btn-lg">6 - 20 c  </button>
+        <div class="btn-group" role="group">
+          <button onclick="PlayDuration('volume4', 'myaudio4', 60000);" class="btn btn-primary btn-lg">
+          <span class="badge">4</span> минута</button>
+          <button onclick="PlayDuration('volume4', 'myaudio4', 30000);" class="btn btn-primary btn-lg">
+          <span class="badge">5</span> 30 c  </button>
+          <button onclick="PlayDuration('volume4', 'myaudio4', 20000);" class="btn btn-primary btn-lg">
+          <span class="badge">6</span> 20 c  </button>
+        </div>
         </td>
         <td>
           <input type="range" id="volume4" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume4','myaudio4')">
@@ -44,7 +52,8 @@
       </tr>
       <tr>
         <td>
-          <button onclick="PlaySound('volume5', 'myaudio5', 'short_breaksPL');" class="btn btn-primary btn-lg btn-block">7 - short breaks</button>
+          <button onclick="PlaySound('volume5', 'myaudio5', 'short_breaksPL');" class="btn btn-primary btn-lg btn-block">
+          <span class="badge">7</span>  short breaks</button>
         </td>
         <td>
           <input type="range" id="volume5" min="0" max="1" value="0.2" step="0.1" oninput="changeVol('volume5','myaudio5')">
@@ -52,7 +61,8 @@
       </tr>
       <tr>
         <td>
-          <button onclick="PlaySound('volume6', 'myaudio6', 'answersPL');" class="btn btn-primary btn-lg btn-block">8 - answer</button>
+          <button onclick="PlaySound('volume6', 'myaudio6', 'answersPL');" class="btn btn-primary btn-lg btn-block">
+          <span class="badge">8</span>  answer</button>
         </td>
         <td>
           <input type="range" id="volume6" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume6','myaudio6')">
@@ -60,12 +70,14 @@
       </tr>
       <tr>
         <td colspan="2">
-          <button onclick="StopSound();" class="btn btn-danger btn-lg btn-block">9 - STOP ALL SOUNDS</button>
+          <button onclick="StopSound();" class="btn btn-danger btn-lg btn-block">
+          <span class="badge">9</span>  STOP ALL SOUNDS</button>
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <button onclick="fadesrc();" class="btn btn-warning btn-lg btn-block">space - Fade out</button>
+          <button onclick="fadesrc();" class="btn btn-warning btn-lg btn-block">
+          <span class="badge">enter</span>  Fade out</button>
         </td>
       </tr>
     </table>
@@ -89,7 +101,7 @@
         <source src="/sounds/answers/Gorillaz — Clint Eastwood.mp3">
       </audio>
     </div>
-    <div id="playlists" class="hidden">  </div>
+    <div id="playlists" class="hidden1">  </div>
     
     <script>
       function keyCode(event){
@@ -113,7 +125,7 @@
           PlaySound('volume6', 'myaudio6', 'answersPL');
         }else if (x == "57"){
           StopSound();
-        }else if (x == "32"){
+        }else if (x == "13"){
           fadesrc();
         }
       }
@@ -178,8 +190,7 @@
           var curSong = randomInt(playlist.length - 1);
           var prevSong = curSong;
           var nextSong = 0;
-          
-          audio.src = playlist[curSong];
+          audio.src = playlist[curSong].replace('&amp;', '&');
           audio.load();
           audio.volume = volume_val;
           audio.play();
@@ -189,7 +200,7 @@
             while(nextSong == curSong || nextSong == prevSong){
               nextSong = randomInt(playlist.length - 1);
             };
-            audio.src = playlist[nextSong];
+            audio.src = playlist[nextSong].replace('&amp;', '&');
             audio.play();
             console.log(audio.src);
             prevSong = curSong;
@@ -211,7 +222,7 @@
           if (!allaudio[i].paused){
             started += 1;
             allaudio[i].onended = function(){
-              console.log("play!");
+              //console.log("play!");
               PlaySound(vol, srcid);
             }
           };
@@ -245,12 +256,11 @@
           };
         };
         function fade(audio){
-          if(audio.volume > 0){
-            audio.volume -= 0.1;
-            setTimeout(fade, 200, audio);
-          }else{
-            audio.pause();
-          };
+          if(audio.volume >= 0.05){
+            console.log(audio.volume);
+            audio.volume -= 0.05;
+            setTimeout(fade, 300, audio);
+          }else{audio.pause();};
         };
       };
     </script>
