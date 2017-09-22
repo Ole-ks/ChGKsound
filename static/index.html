@@ -39,7 +39,7 @@
         <td>
           <div class="btn-group" role="group">
             <button onclick="PlayDuration('volume4', 'myaudio4', 60000);" class="btn btn-primary btn-lg">
-            <span class="badge">4</span> минута</button>
+            <span class="badge">4</span> 60 с</button>
             <button onclick="PlayDuration('volume4', 'myaudio4', 30000);" class="btn btn-primary btn-lg">
             <span class="badge">5</span> 30 c  </button>
             <button onclick="PlayDuration('volume4', 'myaudio4', 20000);" class="btn btn-primary btn-lg">
@@ -69,28 +69,24 @@
         </td>
       </tr>
       <tr>
+        <td>
+          <button onclick="PlaySound('volume7', 'myaudio7');" class="btn btn-primary btn-lg btn-block">
+          <span class="badge">9</span>  черный ящик</button>
+        </td>
+        <td>
+          <input type="range" id="volume7" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume7','myaudio5')">
+        </td>
+      </tr>
+      <tr>
         <td colspan="2">
           <button onclick="StopSound();" class="btn btn-danger btn-lg btn-block">
-          <span class="badge">9</span>  STOP ALL SOUNDS</button>
+          <span class="badge">0</span>  STOP ALL SOUNDS</button>
         </td>
       </tr>
       <tr>
         <td colspan="2">
           <button onclick="fadesrc();" class="btn btn-warning btn-lg btn-block">
-          <span class="badge">0, Q - P</span>  Fade out</button>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <div class="btn-group" role="group">
-            <button onclick="fadesrc1();" class="btn btn-primary btn-lg">50</button>
-            <button onclick="fadesrc2();" class="btn btn-primary btn-lg">70</button>
-            <button onclick="fadesrc3();" class="btn btn-primary btn-lg">90</button>
-            <button onclick="fadesrc4();" class="btn btn-primary btn-lg">100</button>
-            <button onclick="fadesrc5();" class="btn btn-primary btn-lg">110</button>
-            <button onclick="fadesrc6();" class="btn btn-primary btn-lg">130</button>
-            <button onclick="fadesrc7();" class="btn btn-primary btn-lg">150</button>
-          </div>
+          <span class="badge">Q - P</span>  Fade out</button>
         </td>
       </tr>
     </table>
@@ -113,157 +109,37 @@
       <audio id="myaudio6">
         <source src="/sounds/answers/Gorillaz — Clint Eastwood.mp3">
       </audio>
+      <audio id="myaudio7">
+        <source src="/sounds/blackbox.mp3">
+      </audio>
     </div>
     <div id="playlists" class="hidden">  </div>
-    <script>
-      function fadesrc1(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
-        };
-        function fade(audio){
-          if(audio.volume >= 0.05){
-            console.log(audio.volume);
-            audio.volume -= 0.05;
-            setTimeout(fade, 50, audio);
-          }else{audio.pause();};
-        };
-      };
-    </script>
-    <script>
-      function fadesrc2(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
-        };
-        function fade(audio){
-          if(audio.volume >= 0.05){
-            console.log(audio.volume);
-            audio.volume -= 0.05;
-            setTimeout(fade, 70, audio);
-          }else{audio.pause();};
-        };
-      };
-    </script>
-    <script>
-      function fadesrc3(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
-        };
-        function fade(audio){
-          if(audio.volume >= 0.05){
-            console.log(audio.volume);
-            audio.volume -= 0.05;
-            setTimeout(fade, 90, audio);
-          }else{audio.pause();};
-        };
-      };
-    </script>
-    <script>
-      function fadesrc4(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
-        };
-        function fade(audio){
-          if(audio.volume >= 0.05){
-            console.log(audio.volume);
-            audio.volume -= 0.05;
-            setTimeout(fade, 100, audio);
-          }else{audio.pause();};
-        };
-      };
-    </script>
-    <script>
-      function fadesrc5(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
-        };
-        function fade(audio){
-          if(audio.volume >= 0.05){
-            console.log(audio.volume);
-            audio.volume -= 0.05;
-            setTimeout(fade, 110, audio);
-          }else{audio.pause();};
-        };
-      };
-    </script>
-    <script>
-      function fadesrc6(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
-        };
-        function fade(audio){
-          if(audio.volume >= 0.05){
-            console.log(audio.volume);
-            audio.volume -= 0.05;
-            setTimeout(fade, 130, audio);
-          }else{audio.pause();};
-        };
-      };
-    </script>
-    <script>
-      function fadesrc7(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
-        };
-        function fade(audio){
-          if(audio.volume >= 0.05){
-            console.log(audio.volume);
-            audio.volume -= 0.05;
-            setTimeout(fade, 150, audio);
-          }else{audio.pause();};
-        };
-      };
-    </script>
+
     <script>
       function keyCode(event){
         var x = event.keyCode;
         console.log(x);
-        if (x == "49"){
+        if (x == "49"){ //long breaks
           PlaySound('volume1','myaudio1', 'long_breaksPL');
-        } else if (x == "50"){
+        } else if (x == "50"){ //start
           PlaySoundStart('volume2', 'myaudio2');
-        } else if (x == "51"){
+        } else if (x == "51"){ //gong
           PlaySound('volume3', 'myaudio3');
-        }else if (x == "52"){
+        }else if (x == "52"){ //60 s
           PlayDuration('volume4', 'myaudio4', 60000);
-        }else if (x == "53"){
+        }else if (x == "53"){ //30 s
           PlayDuration('volume4', 'myaudio4', 30000);
-        }else if (x == "54"){
+        }else if (x == "54"){ //20 s
           PlayDuration('volume4', 'myaudio4', 20000);
-        }else if (x == "55"){
+        }else if (x == "55"){ //short breaks
           PlaySound('volume5', 'myaudio5', 'short_breaksPL');
-        }else if (x == "56"){
+        }else if (x == "56"){ //answer
           PlaySound('volume6', 'myaudio6', 'answersPL');
-        }else if (x == "57"){
+        }else if (x == "57"){ //black box
+          PlaySound('volume7', 'myaudio7');
+        }else if (x == "48"){ //black box
           StopSound();
-        }else if (x == "48" || x == "81" || x == "87" || x == "69" || x == "82" || x == "84" || x == "89" || x == "85" || x == "73" || x == "79" || x == "80" || x == "219" || x == "221"){
+        }else if (x == "81" || x == "87" || x == "69" || x == "82" || x == "84" || x == "89" || x == "85" || x == "73" || x == "79" || x == "80" || x == "219" || x == "221"){
           fadesrc();
         }
       }
@@ -397,7 +273,7 @@
           if(audio.volume >= 0.05){
             console.log(audio.volume);
             audio.volume -= 0.05;
-            setTimeout(fade, 100, audio);
+            setTimeout(fade, 130, audio);
           }else{audio.pause();};
         };
       };
