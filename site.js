@@ -7,10 +7,12 @@ function getFiles(dir){
   fileList = [];
   var files = fs.readdirSync(dir);
   for(var i in files){
-    if (!files.hasOwnProperty(i)) continue;
-    var name = dir+files[i];
-    if (!fs.statSync(name).isDirectory()){
-      fileList.push(name);
+    if(path.extname(files[i]) === ".mp3") {
+      if (!files.hasOwnProperty(i)) continue;
+      var name = dir+files[i];
+      if (!fs.statSync(name).isDirectory()){
+        fileList.push(name);
+      }
     }
   }
   return fileList;
@@ -33,10 +35,23 @@ file.on('error', function(err) { console.log('err');});
 arr.forEach(function(v) { file.write('/sounds/answers/' + v.split('\\').pop().split('/').pop() + ';;'); });
 file.end();
 
+var arr = getFiles('./static/sounds/before_the_game/');
+var file = fs.createWriteStream('./static/before_the_game.txt');
+file.on('error', function(err) { console.log('err');});
+arr.forEach(function(v) { file.write('/sounds/before_the_game/' + v.split('\\').pop().split('/').pop() + ';;'); });
+file.end();
+
+var arr = getFiles('./static/sounds/after_the_game/');
+var file = fs.createWriteStream('./static/after_the_game.txt');
+file.on('error', function(err) { console.log('err');});
+arr.forEach(function(v) { file.write('/sounds/after_the_game/' + v.split('\\').pop().split('/').pop() + ';;'); });
+file.end();
+
+
 // Описание настроек:
 var staticSiteOptions = {
    portnum: 80, // слушать порт 80
-   maxAge: 1000 * 60 * 1 // хранить страницы в кэше пятнадцать минут
+   maxAge: 1000 * 60 * 1 // хранить страницы в кэше 
 };
 
 // Запуск сайта:

@@ -1,142 +1,184 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/playsound.css">
+    <link rel="stylesheet" href="/css/buttons.css">
     <title>PlaySound</title>
   </head>
-  <body onload="getPlaylists('answers.txt', 'answersPL'); getPlaylists('long_breaks.txt', 'long_breaksPL'); getPlaylists('short_breaks.txt', 'short_breaksPL');" onkeydown="keyCode(event)">
-    <table class="table table-hover" style="width:470">
+  <body onload="getPlaylists('answers.txt', 'answersPL'); 
+                getPlaylists('long_breaks.txt', 'long_breaksPL');
+                getPlaylists('short_breaks.txt', 'short_breaksPL');
+                getPlaylists('before_the_game.txt', 'before_the_gamePL');
+                getPlaylists('after_the_game.txt', 'after_the_gamePL');" 
+        onkeydown="keyCode(event)">
+    <table>
       <tr>
         <td>
-          <button onclick="PlaySound('volume1','myaudio1', 'long_breaksPL');" class="btn btn-primary btn-lg btn-block">
-          <span class="badge">1</span>  long breaks</button>
+          <button onclick="PlaySound('volume0', '', 'before_the_gamePL');" class="btn btn-info btn-lg btn-block">   перед игрой</button>
         </td>
         <td>
-          <input type="range" id="volume1" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume1','myaudio1')">
+          <input type="range" id="volume0" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume0')">
         </td>
       </tr>
       <tr>
         <td>
-          <button onclick="PlaySoundStart('volume2', 'myaudio2');" class="btn btn-primary btn-lg btn-block">
-          <span class="badge">2</span>  start</button>
+          <button onclick="PlaySound('volume1', '', 'long_breaksPL');" class="btn btn-info btn-lg btn-block">
+          <span class="badge">1</span>   большой перерыв</button>
         </td>
         <td>
-          <input type="range" id="volume2" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume2','myaudio2')">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button onclick="PlaySound('volume3', 'myaudio3');" class="btn btn-primary btn-lg btn-block">
-          <span class="badge">3</span>  гонг</button>
-        </td>
-        <td>
-          <input type="range" id="volume3" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume3','myaudio3')">
+          <input type="range" id="volume1" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume1')">
         </td>
       </tr>
       <tr>
         <td>
-          <div class="btn-group" role="group">
-            <button onclick="PlayDuration('volume4', 'myaudio4', 60000);" class="btn btn-primary btn-lg">
-            <span class="badge">4</span> 60с</button>
-            <button onclick="PlayDuration('volume4', 'myaudio4', 30000);" class="btn btn-primary btn-lg">
-            <span class="badge">5</span> 30c  </button>
-            <button onclick="PlayDuration('volume4', 'myaudio4', 20000);" class="btn btn-primary btn-lg">
-            <span class="badge">6</span> 20c  </button>
+          <button onclick="PlaySoundStart('volume2', '/sounds/r u mine.mp3', '');" class="btn btn-info btn-lg btn-block">
+          <span class="badge">2</span>   старт</button>
+        </td>
+        <td>
+          <input type="range" id="volume2" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume2')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlaySound('volume3', '/sounds/gong.mp3', '');" class="btn btn-primary btn-lg btn-block btn-huge">
+          <span class="badge">3</span>   гонг</button>
+        </td>
+        <td>
+          <input type="range" id="volume3" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume3')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <button onclick="PlaySound('volume4', '/sounds/60 seconds.mp3', '');" class="btn btn-primary btn-lg btn-huge btn-ingroup">
+            <span class="badge">4</span>  60 с</button>
+            <button onclick="PlayDuration('volume4', '/sounds/60 seconds.mp3', 30000);" class="btn btn-primary btn-lg btn-huge btn-ingroup">
+            <span class="badge">5</span>  30 c  </button>
+            <button onclick="PlayDuration('volume4', '/sounds/60 seconds.mp3', 20000);" class="btn btn-primary btn-lg btn-huge btn-ingroup">
+            <span class="badge">6</span>  20 c  </button>
           </div>
         </td>
         <td>
-          <input type="range" id="volume4" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume4','myaudio4')">
+          <input type="range" id="volume4" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume4')">
         </td>
       </tr>
       <tr>
         <td>
-          <button onclick="PlaySound('volume5', 'myaudio5', 'short_breaksPL');" class="btn btn-primary btn-lg btn-block">
-          <span class="badge">7</span>  short breaks</button>
+          <button onclick="PlaySound('volume5', '', 'short_breaksPL');" class="btn btn-primary btn-lg btn-block btn-huge">
+          <span class="badge">7</span>   короткий перерыв</button>
         </td>
         <td>
-          <input type="range" id="volume5" min="0" max="1" value="0.2" step="0.1" oninput="changeVol('volume5','myaudio5')">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button onclick="PlaySound('volume6', 'myaudio6', 'answersPL');" class="btn btn-primary btn-lg btn-block">
-          <span class="badge">8</span>  answer</button>
-        </td>
-        <td>
-          <input type="range" id="volume6" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume6','myaudio6')">
+          <input type="range" id="volume5" autocomplete="off" min="0" max="1" value="0.2" step="0.1" oninput="changeVol('volume5')">
         </td>
       </tr>
       <tr>
         <td>
-          <button onclick="PlaySound('volume7', 'myaudio7');" class="btn btn-primary btn-lg btn-block">
-          <span class="badge">9</span>  черный ящик</button>
+          <button onclick="PlaySound('volume6', '', 'answersPL');" class="btn btn-primary btn-lg btn-block btn-huge">
+          <span class="badge">8</span>   ответ</button>
         </td>
         <td>
-          <input type="range" id="volume7" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume7','myaudio5')">
+          <input type="range" id="volume6" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume6')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlaySound('volume7', '/sounds/blackbox.mp3', '');" class="btn btn-info btn-lg btn-block">
+          <span class="badge">9</span>   черный ящик</button>
+        </td>
+        <td>
+          <input type="range" id="volume7" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume7')">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="PlaySound('volume8', '', 'after_the_gamePL');" class="btn btn-info btn-lg btn-block">   после игры</button>
+        </td>
+        <td>
+          <input type="range" id="volume8" autocomplete="off" min="0" max="1" value="1" step="0.1" oninput="changeVol('volume8')">
         </td>
       </tr>
       <tr>
         <td colspan="2">
           <button onclick="StopSound();" class="btn btn-danger btn-lg btn-block">
-          <span class="badge">0</span>  STOP ALL SOUNDS</button>
+          <span class="badge">0</span>   остановить всё</button>
         </td>
       </tr>
       <tr>
         <td colspan="2">
           <button onclick="fadesrc();" class="btn btn-warning btn-lg btn-block">
-          <span class="badge">Q - P</span>  Fade out</button>
+          <span class="badge">Q - P</span>   затихание</button>
         </td>
       </tr>
     </table>
     <div>
-      <audio id="myaudio1">
-        <source src="/sounds/long_breaks/18. Creep.mp3">
-      </audio>
-      <audio id="myaudio2">
-        <source src="/sounds/r u mine.mp3">
-      </audio>
-      <audio id="myaudio3">
-        <source src="/sounds/gong.mp3">
-      </audio>
-      <audio id="myaudio4">
-        <source src="./sounds/60 seconds.mp3">
-      </audio>
-      <audio id="myaudio5">
-        <source src="/sounds/short_breaks/James Brown — The Boss (OST Lock, Stock & Two Smoking Barrels).mp3">
-      </audio>
-      <audio id="myaudio6">
-        <source src="/sounds/answers/Gorillaz — Clint Eastwood.mp3">
-      </audio>
-      <audio id="myaudio7">
-        <source src="/sounds/blackbox.mp3">
-      </audio>
+      <audio id="audioid"></audio>
     </div>
     <div id="playlists" class="hidden">  </div>
 
+    <script>
+      function PlaySound(vol, srcid, plname){
+        StopSound();
+        var audio = document.getElementById('audioid');
+        var volume_val = document.getElementById(vol).value;
+        if (srcid != ''){
+          audio.src = srcid;
+          audio.loop = false;
+          audio.load();
+          audio.volume = volume_val;
+          audio.play();
+          console.log(audio.src);
+          audio.onended = function(){
+          }
+        };
+        if (plname != ''){
+          var playlist = document.getElementById(plname).innerHTML;
+          playlist = playlist.split(";;");
+                    
+          var curSong = randomInt(playlist.length - 1);
+          var prevSong = curSong;
+          var nextSong = 0;
+          audio.src = playlist[curSong].replace('&amp;', '&');
+          audio.loop = false;
+          audio.load();
+          audio.volume = volume_val;
+          audio.play();
+          console.log(audio.src);
+          audio.onended = function(){
+            nextSong = randomInt(playlist.length - 1);
+            while(nextSong == curSong || nextSong == prevSong){
+              nextSong = randomInt(playlist.length - 1);
+            };
+            audio.src = playlist[nextSong].replace('&amp;', '&');
+            audio.play();
+            console.log(audio.src);
+            prevSong = curSong;
+            curSong = nextSong;
+          }
+        }
+      };
+    </script>
     <script>
       function keyCode(event){
         var x = event.keyCode;
         console.log(x);
         if (x == "49"){ //long breaks
-          PlaySound('volume1','myaudio1', 'long_breaksPL');
+          PlaySound('volume1', '', 'long_breaksPL');
         } else if (x == "50"){ //start
-          PlaySoundStart('volume2', 'myaudio2');
+          PlaySoundStart('volume2', '/sounds/r u mine.mp3', '');
         } else if (x == "51"){ //gong
-          PlaySound('volume3', 'myaudio3');
+          PlaySound('volume3', '/sounds/gong.mp3', '');
         }else if (x == "52"){ //60 s
-          PlayDuration('volume4', 'myaudio4', 60000);
+          PlaySound('volume4', '/sounds/60 seconds.mp3', '');
         }else if (x == "53"){ //30 s
-          PlayDuration('volume4', 'myaudio4', 30000);
+          PlayDuration('volume4', '/sounds/60 seconds.mp3', 30000);
         }else if (x == "54"){ //20 s
-          PlayDuration('volume4', 'myaudio4', 20000);
+          PlayDuration('volume4', '/sounds/60 seconds.mp3', 20000);
         }else if (x == "55"){ //short breaks
-          PlaySound('volume5', 'myaudio5', 'short_breaksPL');
+          PlaySound('volume5', '', 'short_breaksPL');
         }else if (x == "56"){ //answer
-          PlaySound('volume6', 'myaudio6', 'answersPL');
+          PlaySound('volume6', '', 'answersPL');
         }else if (x == "57"){ //black box
-          PlaySound('volume7', 'myaudio7');
+          PlaySound('volume7', '/sounds/blackbox.mp3', '');
         }else if (x == "48"){ //black box
           StopSound();
         }else if (x == "81" || x == "87" || x == "69" || x == "82" || x == "84" || x == "89" || x == "85" || x == "73" || x == "79" || x == "80" || x == "219" || x == "221"){
@@ -167,7 +209,7 @@
     </script>
     <script>
       function PlayDuration(vol, srcid, dur){
-        PlaySound(vol, srcid);
+        PlaySound(vol, srcid, '');
         setTimeout(StopSound,dur);
       };
     </script>
@@ -192,53 +234,15 @@
       }
     </script>
     <script>
-      function PlaySound(vol, srcid, plname){
-        StopSound();
-        var audio = document.getElementById(srcid);
-        var volume_val = document.getElementById(vol).value;
-        if (typeof plname != 'undefined'){
-          var playlist = document.getElementById(plname).innerHTML;
-          playlist = playlist.split(";;");
-                    
-          var curSong = randomInt(playlist.length - 1);
-          var prevSong = curSong;
-          var nextSong = 0;
-          audio.src = playlist[curSong].replace('&amp;', '&');
-          audio.load();
-          audio.volume = volume_val;
-          audio.play();
-          console.log(audio.src);
-          audio.onended = function(){
-            nextSong = randomInt(playlist.length - 1);
-            while(nextSong == curSong || nextSong == prevSong){
-              nextSong = randomInt(playlist.length - 1);
-            };
-            audio.src = playlist[nextSong].replace('&amp;', '&');
-            audio.play();
-            console.log(audio.src);
-            prevSong = curSong;
-            curSong = nextSong;
-          }
-        }else{
-          audio.load();
-          audio.volume = volume_val;
-          audio.play();
-          console.log(audio.src);
-        }
-      };
-    </script>
-    <script>
       function PlaySoundStart(vol, srcid){
-        var allaudio = document.getElementsByTagName("audio");
+        var audio = document.getElementById('audioid');
         var started = 0;
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            started += 1;
-            allaudio[i].onended = function(){
-              console.log("play!");
-              PlaySound(vol, srcid);
-            }
-          };
+        if (!audio.paused){
+          started += 1;
+          audio.onended = function(){
+            console.log("play!");
+            PlaySound(vol, srcid, '');
+          }
         };
         if (started == 0){
           PlaySound(vol, srcid);
@@ -246,28 +250,23 @@
       }
     </script>
     <script>
-      function changeVol(vol, srcid){
+      function changeVol(vol){
         var volume_val = document.getElementById(vol).value;
-        var audio = document.getElementById(srcid);
+        var audio = document.getElementById('audioid');
         audio.volume = volume_val;
       };
     </script>
     <script>
       function StopSound(){
-        var allaudio = document.getElementsByTagName("audio");
-        for (var i=0; i < allaudio.length; i++) {
-          allaudio[i].pause();
-        };
+        var audio = document.getElementById('audioid');
+        audio.pause();
       };
     </script>
     <script>
       function fadesrc(){
-        var allaudio = document.getElementsByTagName("audio");
-        var fadeparam = document.getElementById("fadeparam");
-        for (var i=0; i<allaudio.length; i++) {
-          if (!allaudio[i].paused){
-            fade(allaudio[i]);
-          };
+        var audio = document.getElementById('audioid');
+        if (!audio.paused){
+          fade(audio);
         };
         function fade(audio){
           if(audio.volume >= 0.05){
